@@ -1,0 +1,35 @@
+
+    <mat-toolbar color = "primary" style="height:50px;">
+            <span class = "gap">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="navigateMenu('home')">
+                        <mat-icon>home</mat-icon>
+                        <span>Home</span>
+                    </button>
+                    <button mat-menu-item (click)="navigateMenu('sprint')">
+                        <mat-icon>directions_run</mat-icon>
+                        <span>Sprints</span>
+                    </button>
+                    <button mat-menu-item (click)="navigateMenu('profile')">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>Profile</span>
+                    </button>
+                    <button mat-menu-item *ngIf="!auth.loggedIn" (click)="auth.login()">
+                        <mat-icon>get_app</mat-icon>
+                        <span>Login</span>
+                    </button>
+                    <button mat-menu-item *ngIf="auth.loggedIn" (click)="auth.logout()">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>Logout</span>
+                    </button>
+                </mat-menu>
+            </span>
+            <span class = "filler"></span>
+            <span>
+                    <img width="100" alt="Angular Logo" src="../../assets/img/logoSprint.png">
+            </span>
+            <span class = "filler"></span>
+         </mat-toolbar>

@@ -1,0 +1,14 @@
+:host{
+    width: 100%;
+    height: 50px;
+    display: block;
+    background: #3f51b5;
+    line-height: 50px;
+    color: white
+}
+.filler {
+    flex: 1 1 auto;
+ }
+ .gap {
+    margin-right: 10px;
+ }
