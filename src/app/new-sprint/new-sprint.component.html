@@ -1,0 +1,63 @@
+<form autocomplete="off" novalidate>
+  <fieldset>
+    <legend>Start a new sprint</legend>
+    <div class="form-field">
+      <select>
+        <!---->
+        <option
+          _ngcontent-c8=""
+          class="ng-star-inserted"
+          *ngFor="let option of options"
+          >{{ option }}
+        </option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label _ngcontent-c8="" class="select-label">Choose length *</label>
+    </div>
+    <div _ngcontent-c8="" class="label-hint-valid">
+      <label _ngcontent-c8="">✔</label>
+    </div>
+    <div class="form-field">
+      <label _ngcontent-c8="">Description *</label>
+      <input name="test" />
+    </div>
+    <div class="form-field">
+      <textarea
+        _ngcontent-c8=""
+        formControlName="description"
+        placeholder="What will you be doing?"
+        rows="3"
+        class="ng-untouched ng-pristine ng-invalid"
+        style="margin-bottom: 0px;"
+        #description
+        required
+      ></textarea>
+    </div>
+    <div class="form-field">
+      <label _ngcontent-c8="">Required</label>
+    </div>
+    <div class="form-field">
+      <div _ngcontent-c8="" class="checkbox">
+        <label _ngcontent-c8="">
+          <!---->
+          <input
+            _ngcontent-c8=""
+            formControlName="notify"
+            type="checkbox"
+            class="ng-untouched ng-pristine ng-valid ng-star-inserted"
+            #notify
+          />
+          <!---->
+          <span _ngcontent-c8="" class="box"></span> Notify when completed
+        </label>
+      </div>
+    </div>
+    <label>
+      <div class="form-field">
+        &nbsp;notifications disabled by browser
+      </div>
+    </label>
+  </fieldset>
+  <button type="submit" class="btn  btn-primary">Start</button>
+</form>

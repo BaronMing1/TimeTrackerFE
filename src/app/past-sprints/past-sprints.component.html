@@ -1,1 +1,38 @@
 <p>past-sprints works!</p>
+<mat-table
+  class="pastSprint-table mat-elevation-z8"
+  [dataSource]="dataSource"
+  matSort
+  matSortActive="user"
+  matSortDirection="asc"
+  matSortDisableClear
+>
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>User</mat-header-cell>
+
+    <mat-cell *matCellDef="let pastSprint">{{ pastSprint.user }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+
+    <mat-cell class="description-cell" *matCellDef="let pastSprint">{{
+      pastSprint.description
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+    <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+
+    <mat-cell class="duration-cell" *matCellDef="let pastSprint">{{
+      pastSprint.sprintType.duration
+    }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<div class="d-flex justify-content-center">
+  <h6>Logged in as {{ login_profile?.name }}</h6>
+</div>

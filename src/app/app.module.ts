@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatTabsModule } from '@angular/material/';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule, MatTableModule } from '@angular/material/';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { AppSprintComponent } from './app-sprint/app-sprint.component';
 import { CallbackAuthComponent } from './callback-auth/callback-auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PastSprintsComponent } from './past-sprints/past-sprints.component';
+import { NewSprintComponent } from './new-sprint/new-sprint.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PastSprintsComponent } from './past-sprints/past-sprints.component';
     AppSprintComponent,
     CallbackAuthComponent,
     ProfileComponent,
-    PastSprintsComponent
+    PastSprintsComponent,
+    NewSprintComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +38,11 @@ import { PastSprintsComponent } from './past-sprints/past-sprints.component';
     MatMenuModule,
     MatIconModule,
     MatTabsModule,
+    MatTableModule,
     MatToolbarModule,
     AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
