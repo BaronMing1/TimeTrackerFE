@@ -1,0 +1,13 @@
+<div *ngIf="auth.userProfile$ | async as profile">
+  <h6>Logged in as {{ profile.nickname }}</h6>
+</div>
+<!-- <div *ngIf="!auth.userProfile$ | async as profile">
+  <h6>Not Logged in</h6>
+</div> -->
+<!-- <div *ngIf="auth.loggedIn">
+    <h6>Logged in as {{ auth.user$ }}</h6>
+    <pre *ngIf="auth.userProfile$ | async as profile">
+        <h6>Logged in as {{ profile.nickname }}</h6>
+       <code>{{ profile | json }}</code>
+  </pre>
+  </div> -->

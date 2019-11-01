@@ -1,15 +1,34 @@
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
+import {
+  from,
+  of,
+  Observable,
+  BehaviorSubject,
+  combineLatest,
+  throwError
+} from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AUTH_CONFIG } from '../constant';
+import { User } from '../models/user';
+import { map } from 'rxjs/operators';
+import auth0Lock from 'auth0-lock';
+import { Auth0UserInfo } from '../models/auth0.user.info';
 
+export const ANONYMOUS_USER: User = {
+  id: undefined,
+  email: '',
+  nickname: ''
+};
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private subject = new BehaviorSubject<User>(ANONYMOUS_USER);
+  user$: Observable<User> = this.subject.asObservable();
+  // isLoggedIn$: Observable<boolean> = this.user$.pipe(map(user => !!user.id));
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
@@ -19,9 +38,7 @@ export class AuthService {
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
-    catchError(err =>
-      throwError(err)
-      )
+    catchError(err => throwError(err))
   );
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
@@ -29,16 +46,14 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
     tap((client2: Auth0Client) => {
-       console.log(client2.getIdTokenClaims());
-       }),
+      console.log(client2.getIdTokenClaims());
+    }),
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
     tap(res => {
-
       this.loggedIn = res;
       console.log('is authenticated');
-    } )
+    })
   );
-
 
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
@@ -49,7 +64,22 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) { }
+  lock = new auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain);
+
+  constructor(private router: Router) {
+    this.lock.on('authenticated', (authResult: any) => {
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+        if (error) {
+          throw new Error(error);
+        }
+        localStorage.setItem('token', authResult.idToken);
+        localStorage.setItem('profile', JSON.stringify(profile));
+        this.router.navigate(['/sprint']);
+      });
+    });
+
+    this.lock.on('authorization_error', error => {});
+  }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -102,14 +132,12 @@ export class AuthService {
       // Have client, now call method to handle auth callback redirect
       tap(cbRes => {
         // Get and set target redirect route from callback results
-        targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+        targetRoute =
+          cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
       }),
       concatMap(() => {
         // Redirect callback complete; get user and login status
-        return combineLatest(
-          this.getUser$(),
-          this.isAuthenticated$
-        );
+        return combineLatest(this.getUser$(), this.isAuthenticated$);
       })
     );
     // Subscribe to authentication completion observable

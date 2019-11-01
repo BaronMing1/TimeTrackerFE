@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Delete all</h2>
+<mat-dialog-content>Deletion is irreversible. Are you sure?</mat-dialog-content>
+<mat-dialog-content
+  >The only information concerning your user that we store are your past
+  sprints. We do not store information about your user itself. Delete to
+  eliminate all records.</mat-dialog-content
+>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>No</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">Yes</button>
+</mat-dialog-actions>

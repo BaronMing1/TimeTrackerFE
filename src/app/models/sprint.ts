@@ -7,6 +7,6 @@ export interface Sprint {
   notify: boolean;
   user: string;
   createdAt: Date;
-  startedAt: string;
-  finishedAt: string;
+  startedAt: Date;
+  finishedAt: Date;
 }

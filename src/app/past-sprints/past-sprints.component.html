@@ -1,7 +1,6 @@
-<p>past-sprints works!</p>
 <mat-table
   class="pastSprint-table mat-elevation-z8"
-  [dataSource]="dataSource"
+  [dataSource]="dataSource$"
   matSort
   matSortActive="user"
   matSortDirection="asc"
@@ -21,6 +20,20 @@
     }}</mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Length</mat-header-cell>
+    <mat-cell class="duration-cell" *matCellDef="let pastSprint">{{
+      pastSprint.sprintType.name
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+    <mat-cell class="duration-cell" *matCellDef="let pastSprint">{{
+      pastSprint.sprintType.status
+    }}</mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="duration">
     <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
 
@@ -33,6 +46,30 @@
 
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
-<div class="d-flex justify-content-center">
-  <h6>Logged in as {{ login_profile?.name }}</h6>
+<!-- <div class="form-group" style="text-align: center">
+  <div>
+    <button
+      type="submit"
+      class="btn btn-outline-danger"
+      data-toggle="modal"
+      data-target="#areyousure"
+    >
+      Delete all data
+    </button>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="areyousure"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true"
+  </div>
+> -->
+<div _ngcontent-c6="" class="button-delete" style="text-align:center">
+  <button mat-raised-button (click)="openDialog()">
+    Delete all data
+  </button>
 </div>

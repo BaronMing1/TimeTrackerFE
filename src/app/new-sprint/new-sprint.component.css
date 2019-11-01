@@ -1,3 +1,23 @@
 .ng-dirty.ng-invalid {
   border: 2px solid #ff2118;
 }
+.lesson {
+  margin: 25px auto 0 auto;
+  max-width: 350px;
+}
+.form-field {
+  margin-bottom: 15px;
+}
+form label {
+  width: 200px;
+  display: inline-block;
+  text-align: right;
+  vertical-align: top;
+  margin-right: 5px;
+}
+.field-error-message {
+  text-align: right;
+  padding-right: 68px;
+  font-size: 16px;
+  color: #a10000;
+}

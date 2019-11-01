@@ -5,6 +5,7 @@ import { CallbackAuthComponent } from './callback-auth/callback-auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -18,20 +19,17 @@ const routes: Routes = [
   {
     path: 'callbackAuth',
     component: CallbackAuthComponent
-    },
+  },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
-  declarations: [
-  ],
-  imports: [
-    RouterModule.forRoot(routes),
-    HttpClientModule
-  ],
+  declarations: [],
+  imports: [RouterModule.forRoot(routes), HttpClientModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

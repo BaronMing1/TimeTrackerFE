@@ -1,63 +1,89 @@
-<form autocomplete="off" novalidate>
-  <fieldset>
-    <legend>Start a new sprint</legend>
-    <div class="form-field">
-      <select>
-        <!---->
-        <option
-          _ngcontent-c8=""
-          class="ng-star-inserted"
-          *ngFor="let option of options"
-          >{{ option }}
-        </option>
-      </select>
-    </div>
-    <div class="form-field">
-      <label _ngcontent-c8="" class="select-label">Choose length *</label>
-    </div>
-    <div _ngcontent-c8="" class="label-hint-valid">
-      <label _ngcontent-c8="">✔</label>
-    </div>
-    <div class="form-field">
-      <label _ngcontent-c8="">Description *</label>
-      <input name="test" />
-    </div>
-    <div class="form-field">
-      <textarea
-        _ngcontent-c8=""
-        formControlName="description"
-        placeholder="What will you be doing?"
-        rows="3"
-        class="ng-untouched ng-pristine ng-invalid"
-        style="margin-bottom: 0px;"
-        #description
-        required
-      ></textarea>
-    </div>
-    <div class="form-field">
-      <label _ngcontent-c8="">Required</label>
-    </div>
-    <div class="form-field">
-      <div _ngcontent-c8="" class="checkbox">
-        <label _ngcontent-c8="">
-          <!---->
-          <input
-            _ngcontent-c8=""
-            formControlName="notify"
-            type="checkbox"
-            class="ng-untouched ng-pristine ng-valid ng-star-inserted"
-            #notify
-          />
-          <!---->
-          <span _ngcontent-c8="" class="box"></span> Notify when completed
-        </label>
-      </div>
-    </div>
-    <label>
+<div [hidden]="sprintService.pastSprintPage">
+  <form
+    #f="ngForm"
+    (ngSubmit)="saveNewSprint(f)"
+    class="lesson"
+    autocomplete="off"
+    novalidate
+  >
+    <fieldset>
+      <legend>Start a new sprint</legend>
       <div class="form-field">
-        &nbsp;notifications disabled by browser
+        <label class="select-label">Choose length *</label>
       </div>
-    </label>
-  </fieldset>
-  <button type="submit" class="btn  btn-primary">Start</button>
-</form>
+      <div class="form-group">
+        <select
+          class="form-control"
+          required
+          [(ngModel)]="formInfo.selectedOption"
+          name="duration"
+          id="duration"
+        >
+          <!---->
+          <option *ngFor="let option of options" [value]="option"
+            >{{ option }}
+          </option>
+        </select>
+      </div>
+      <div _ngcontent-c8="" class="label-hint-valid">
+        <label _ngcontent-c8="">✔</label>
+      </div>
+      <div class="form-field">
+        <label _ngcontent-c8="">Description *</label>
+        <!-- <input ngModel name="test" /> -->
+      </div>
+      <div class="form-field">
+        <textarea
+          ngModel
+          name="description"
+          placeholder="What will you be doing?"
+          rows="3"
+          style="margin-bottom: 0px;"
+          #description="ngModel"
+          [(ngModel)]="formInfo.description"
+          required
+        ></textarea>
+
+        <div
+          class="form-field"
+          *ngIf="description?.dirty && description?.errors?.required"
+        >
+          <label _ngcontent-c8="" class="field-error-message">Required</label>
+        </div>
+        <div
+          class="form-field"
+          *ngIf="description?.dirty && !description?.errors?.required"
+        >
+          <label _ngcontent-c8="">✔</label>
+        </div>
+      </div>
+      <div class="form-field">
+        <div _ngcontent-c8="" class="checkbox">
+          <label _ngcontent-c8="">
+            <!---->
+            <input
+              _ngcontent-c8=""
+              type="checkbox"
+              name="notify"
+              [(ngModel)]="formInfo.notify"
+              #notify
+            />
+            <!---->
+            <span _ngcontent-c8="" class="box"></span> Notify when completed
+          </label>
+        </div>
+      </div>
+      <label>
+        <div class="form-field">
+          &nbsp;notifications disabled by browser
+        </div>
+      </label>
+    </fieldset>
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">
+      Start
+    </button>
+  </form>
+</div>
+<div [hidden]="!sprintService.pastSprintPage">
+  <app-in-progress-sprint></app-in-progress-sprint>
+</div>

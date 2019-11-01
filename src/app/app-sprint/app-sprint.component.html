@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="auth.loggedIn">
   <mat-tab-group>
     <mat-tab label="Past Sprints">
       <app-past-sprints></app-past-sprints>
@@ -7,4 +7,11 @@
       <app-new-sprint></app-new-sprint>
     </mat-tab>
   </mat-tab-group>
+</div>
+<div *ngIf="!auth.loggedIn">
+  <div>
+    <label for="sprintLength"
+      >Vous devez être connecté pour accéder à cette page</label
+    >
+  </div>
 </div>

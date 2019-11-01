@@ -1,0 +1,55 @@
+<div style="text-align:center">
+  <h2>Progress</h2>
+
+  <br />
+  <section class="tp-section">
+    <label class="tp-margin">Color:</label>
+    <mat-radio-group [(ngModel)]="color">
+      <mat-radio-button class="tp-margin" value="primary">
+        Primary
+      </mat-radio-button>
+      <mat-radio-button class="tp-margin" value="accent">
+        Accent
+      </mat-radio-button>
+      <mat-radio-button class="tp-margin" value="warn">
+        Warn
+      </mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <!-- <section class="tp-section">
+    <label class="tp-margin">Mode:</label>
+    <mat-radio-group [(ngModel)]="mode">
+      <mat-radio-button class="tp-margin" value="determinate">
+        Determinate
+      </mat-radio-button>
+      <mat-radio-button class="tp-margin" value="indeterminate">
+        Indeterminate
+      </mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <section class="tp-section" *ngIf="mode === 'determinate'">
+    <label class="tp-margin">Progress:</label>
+    <mat-slider class="tp-margin" [(ngModel)]="value"></mat-slider>
+  </section> -->
+  <section class="tp-section">
+    <!-- <label class="tp-margin">Mode: {{ mode }}</label> -->
+    <mat-progress-spinner
+      class="tp-margin"
+      [color]="color"
+      [mode]="mode"
+      [value]="value"
+    >
+    </mat-progress-spinner>
+  </section>
+  <section class="tp-section">
+    <label>progress: {{ percentage$ | percent: '1.1-1' }} </label>
+  </section>
+
+  <div class="form-group">
+    <div>
+      <form (ngSubmit)="holdSprint()" #holdSprintForm="ngForm">
+        <button (click)="openConfirmationDialog()">Stop sprint</button>
+      </form>
+    </div>
+  </div>
+</div>
